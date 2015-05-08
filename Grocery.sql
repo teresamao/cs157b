@@ -7,10 +7,10 @@ USE Grocery;
 
 DROP TABLE IF EXISTS `Product` CASCADE;
 CREATE TABLE `Product` (
-	`product_key` float PRIMARY KEY,
+	`product_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL PRIMARY KEY,
 	`description` varchar(255) NOT NULL,
 	`full_description` varchar(50) NOT NULL,
-	`SKU_number` float,
+	`SKU_number` INT,
 	`package_size` varchar(255) NOT NULL,
 	`brand` varchar(255) NOT NULL,
 	`subcategory` varchar(255) NOT NULL,
@@ -20,9 +20,9 @@ CREATE TABLE `Product` (
 	`diet_type` varchar(255) NOT NULL,
 	`weight` float,
 	`weight_unit_of_measure` varchar(255) NOT NULL,
-	`units_per_retail_case` float,
-	`units_per_shipping_case` float,
-	`cases_per_pallet` float,
+	`units_per_retail_case` INT,
+	`units_per_shipping_case` INT,
+	`cases_per_pallet` INT,
 	`shelf_width_cm` float,
 	`shelf_height_cm` float,
 	`shelf_depth_cm` float,
@@ -94,7 +94,7 @@ INSERT INTO `Product` (`product_key`, `description`, `full_description`, `SKU_nu
 
 DROP TABLE IF EXISTS `Promotion` CASCADE;
 CREATE TABLE `Promotion` (
-	`promotion_key` float PRIMARY KEY,
+	`promotion_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL PRIMARY KEY,
 	`promotion_name` varchar(255),
 	`price_reduction_type` varchar(255),
 	`ad_type` varchar(255),
@@ -123,14 +123,14 @@ INSERT INTO `Promotion` (`promotion_key`, `promotion_name`, `price_reduction_typ
 
 DROP TABLE IF EXISTS `SalesFact` CASCADE;
 CREATE TABLE `SalesFact` (
-	`time_key` float REFERENCES TIME(time_key),
-	`product_key` float REFERENCES product(product_key),
-	`promotion_key` float references promotion(promotion_key),
-	`store_key` float references store(store_key),
+	`time_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL REFERENCES TIME(time_key),
+	`product_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL REFERENCES product(product_key),
+	`promotion_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL references promotion(promotion_key),
+	`store_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL references store(store_key),
 	`dollar_sales` float,
-	`unit_sales` float,
+	`unit_sales` INT,
 	`dollar_cost` float,
-	`customer_count` float,
+	`customer_count` INT,
 	INDEX `product_key` (`product_key` ASC),
 	INDEX `promotion_key` (`promotion_key` ASC),
 	INDEX `store_key` (`store_key` ASC),
@@ -11180,14 +11180,14 @@ INSERT INTO `SalesFact` (`time_key`, `product_key`, `promotion_key`, `store_key`
 
 DROP TABLE IF EXISTS `Store` CASCADE;
 CREATE TABLE `Store` (
-	`store_key` float PRIMARY KEY,
+	`store_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL PRIMARY KEY,
 	`name` varchar(255) NOT NULL,
-	`store_number` float,
+	`store_number` INT,
 	`store_street_address` varchar(255) NOT NULL,
 	`city` varchar(255) NOT NULL,
 	`store_county` varchar(255) NOT NULL,
 	`store_state` varchar(255) NOT NULL,
-	`store_zip` float,
+	`store_zip` INT,
 	`sales_district` varchar(255) NOT NULL,
 	`sales_region` varchar(255) NOT NULL,
 	`store_manager` varchar(255) NOT NULL,
@@ -11228,18 +11228,18 @@ INSERT INTO `Store` (`store_key`, `name`, `store_number`, `store_street_address`
 
 DROP TABLE IF EXISTS `Time` CASCADE;
 CREATE TABLE `Time` (
-	`time_key` float PRIMARY KEY,
+	`time_key` INT( 11 ) UNSIGNED ZEROFILL NOT NULL PRIMARY KEY,
 	`date` datetime,
 	`day_of_week` varchar(255) NOT NULL,
-	`day_number_in_month` float,
-	`day_number_overall` float,
-	`week_number_in_year` float,
-	`week_number_overall` float,
+	`day_number_in_month` INT,
+	`day_number_overall` INT,
+	`week_number_in_year` INT,
+	`week_number_overall` INT,
 	`Month` varchar(50) NOT NULL,
-	`quarter` float,
+	`quarter` INT,
 	`fiscal_period` varchar(255) NOT NULL,
-	`year` float,
-	`holiday_flag` varchar(255) NOT NULL,
+	`year` INT,
+	`holiday_flag` varchar(1) NOT NULL,
 	INDEX `time_key` (`time_key` ASC)
 );
 
