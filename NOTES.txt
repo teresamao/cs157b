@@ -1,0 +1,2 @@
+use the following for keys:
+    INT( 11 ) UNSIGNED ZEROFILL NOT NULL
